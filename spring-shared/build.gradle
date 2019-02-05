@@ -1,0 +1,14 @@
+dependencyManagement {
+	imports {
+		mavenBom 'org.springframework.boot:spring-boot-dependencies:1.5.18.RELEASE'
+	}
+}
+
+dependencies {
+	api 'com.ascelion.rest-bridge:rest-bridge-spring'
+	api 'com.github.tomakehurst:wiremock'
+
+	compileOnly 'org.springframework.boot:spring-boot-starter-web'
+
+	runtime 'org.jboss.resteasy:resteasy-client'
+}

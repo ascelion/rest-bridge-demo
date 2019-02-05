@@ -1,0 +1,45 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath 'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
+	}
+}
+
+allprojects {
+	repositories {
+		mavenLocal()
+		jcenter()
+	}
+
+	apply plugin: 'eclipse'
+}
+
+subprojects { sub ->
+	apply plugin: 'java-library'
+	apply plugin: 'io.spring.dependency-management'
+
+	dependencyManagement {
+		dependencies {
+			dependency 'javax.ws.rs:javax.ws.rs-api:2.1.1'
+			dependency 'com.github.tomakehurst:wiremock:2.19.0'
+			dependency 'org.jboss.resteasy:resteasy-client:3.6.2.Final'
+
+			dependencySet( group: 'com.ascelion.rest-bridge', version: '1.2.+' ) {
+				entry 'rest-bridge-cdi'
+				entry 'rest-bridge-client'
+				entry 'rest-bridge-micro'
+				entry 'rest-bridge-spring'
+			}
+		}
+	}
+	eclipse {
+		project {
+			name = "${rootProject.name}${sub.path.replace(':', '-')}"
+
+			natures 'org.eclipse.buildship.core.gradleprojectnature'
+			buildCommand 'org.eclipse.buildship.core.gradleprojectbuilder'
+		}
+	}
+}

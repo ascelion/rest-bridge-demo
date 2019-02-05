@@ -1,0 +1,5 @@
+rootProject.name = 'rest-bridge-demo'
+
+include ':spring-boot1'
+include ':spring-boot2'
+include ':spring-shared'
